@@ -1,0 +1,88 @@
+# примеры API-запросов
+
+@baseUrl = http://localhost:8000/api
+
+# получение всех постов
+GET {{baseUrl}}/posts/
+Content-Type: application/json
+#Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+#Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+###
+
+# получение поста
+GET {{baseUrl}}/posts/2/
+Content-Type: application/json
+#Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+#Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+###
+
+# создание поста
+POST {{baseUrl}}/posts/
+Content-Type: application/json
+Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+
+{
+  "text": "new post from user"
+}
+###
+
+# создание поста
+POST {{baseUrl}}/posts/
+Content-Type: application/json
+Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+{
+  "text": "post from admin"
+}
+
+###
+
+# удаление поста admin
+DELETE {{baseUrl}}/posts/1/
+Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+###
+
+# удаление поста user
+DELETE {{baseUrl}}/posts/3/
+Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+
+###
+
+# создание коментариев 
+POST {{baseUrl}}/posts/5/comments/
+Content-Type: application/json
+Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+{
+  "text": "a another comment from admin"
+}
+
+###
+
+# создание коментариев 
+POST {{baseUrl}}/posts/2/comments/
+Content-Type: application/json
+Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+
+{
+  "text": "another comment from user"
+}
+
+###
+
+# лайк к посту
+POST {{baseUrl}}/posts/5/likes/
+Content-Type: application/json
+Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+#Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
+
+###
+
+# дизлайк к посту
+DELETE  {{baseUrl}}/posts/5/likes/
+Content-Type: application/json
+Authorization: Token 4e9a2ba8ed30492356403055da54328ddbd93921
+#Authorization: Token 48c9e068767beb9075f97e53562656b89afc8f61
