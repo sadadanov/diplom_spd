@@ -77,7 +77,7 @@ class LikeView(APIView):
 
         user = self.request.user
 
-        if Like.objects.filter(post=post, user=user).exists():
+        if Like.objects.filter(post=post, author=user).exists():
             return Response({"Ошибка": "Вы уже оценили этот пост"}, status=status.HTTP_400_BAD_REQUEST)
                
         if not Like.objects.filter(post=post, author=request.user).exists():
@@ -86,7 +86,12 @@ class LikeView(APIView):
 
     def delete(self, request, post_id):
         """ Метод удаления лайка в посте. """
-        post = Post.objects.get(id=post_id)
+        
+         try:
+            post = Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            return Response({"Ошибка": "Пост не найден."}, status=status.HTTP_404_NOT_FOUND)
+        
         if Like.objects.filter(post=post, author=request.user).exists():
             Like.objects.filter(post=post, author=request.user).delete()
         return Response(status=status.HTTP_200_OK)
